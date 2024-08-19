@@ -31,23 +31,30 @@ export const fetchUserTodos = async (setToDoItems) => {
     }
   };
 
- export const addItem = async (newItem, setToDoItems) => {
+ export const addItem = async (newItem, toDoItems, setToDoItems) => {
     if (newItem) {
       try {
+        const newTask = {
+            label: newItem,
+            is_done: false,
+        }
         const response = await fetch(`${API_BASE_URL}/todos/${user}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            label: newItem,
-            is_done: false,
-          }),
+          body: JSON.stringify(newTask),
         });
 
         if (response.ok) {
           const data = await response.json();
-          setToDoItems([...toDoItems, data]);
+          const updatedTodos = [
+            ...toDoItems,
+            { ...newTask, id: data.id},
+          ];
+
+          setToDoItems(updatedTodos);
+          fetchUserTodos(setToDoItems)
         //   setNewItem("");
         }
       } catch (error) {

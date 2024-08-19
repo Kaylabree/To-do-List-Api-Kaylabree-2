@@ -13,7 +13,7 @@ const ToDoList = () => {
   }, []);
 
   const handleAddItem = () => {
-    addItem(newItem, setToDoItems);
+    addItem(newItem, toDoItems, setToDoItems);
     setNewItem("")
   }
 
@@ -88,7 +88,7 @@ const ToDoList = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      addItem(newItem, setToDoItems);
+      addItem(newItem, toDoItems, setToDoItems);
       setNewItem("")
     }
   };
