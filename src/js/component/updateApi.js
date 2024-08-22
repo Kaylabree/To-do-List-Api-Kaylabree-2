@@ -34,26 +34,29 @@ export const fetchUserTodos = async (setToDoItems) => {
  export const addItem = async (newItem, toDoItems, setToDoItems) => {
     if (newItem) {
       try {
-        const newTask = {
-            label: newItem,
-            is_done: false,
-        }
+        // const newTask = {
+        //     label: newItem,
+        //     is_done: false,
+        // }
         const response = await fetch(`${API_BASE_URL}/todos/${user}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newTask),
+          body: JSON.stringify({
+            label: newItem,
+            is_done: false,
+          }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          const updatedTodos = [
-            ...toDoItems,
-            { ...newTask, id: data.id},
-          ];
+          // const updatedTodos = [
+          //   ...toDoItems,
+          //   { ...newTask, id: data.id},
+          // ];
 
-          setToDoItems(updatedTodos);
+          // setToDoItems(updatedTodos);
           fetchUserTodos(setToDoItems)
         //   setNewItem("");
         }
